@@ -4814,6 +4814,31 @@ textarea.field {
   20%, 24%, 55% { opacity: 0.55; }
 }
 
+/* Неоновое свечение вокруг наклейки с губами. Наклейка — часть той же картинки
+   hero-title.png, и у картинки нет прозрачности (фон нарисован прямо в ней), поэтому
+   filter: drop-shadow() на самой картинке светился бы прямоугольником.
+   Вместо этого .hero::after показывает поверх наклейки её же кусок картинки, а фильтры
+   превращают его в свечение по контуру: grayscale + brightness + contrast оставляют
+   только белую обводку наклейки, blur размывает её в ореол, sepia + saturate +
+   hue-rotate красят в цвет --color-neon. mix-blend-mode: screen — чёрное «пропадает»,
+   остаётся только свет. Маска убирает свечение из середины наклейки (губы и купюра
+   остаются чёткими). Мерцает в том же 7-секундном ритме, что и «Потрачено». */
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 231px;                     /* 110px (картинка) + 121px: кусок картинки с наклейкой и запасом под свечение */
+  left: calc(50% - 213px);        /* центр картинки (50%) - 650px + 437px */
+  width: 424px;
+  height: 452px;
+  background: url("img/hero-title.png") -437px -121px / 1300px 570px no-repeat;
+  filter: grayscale(1) brightness(0.568) contrast(30) blur(12px) brightness(0.55) sepia(1) saturate(9) hue-rotate(-45deg) brightness(1.7);
+  -webkit-mask-image: radial-gradient(ellipse 150px 165px at 212px 226px, transparent 60%, #000 100%);
+  mask-image: radial-gradient(ellipse 150px 165px at 212px 226px, transparent 60%, #000 100%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: neon-flicker 7s linear infinite;
+}
+
 /* Заголовки разделов — более спокойное свечение, текст остаётся белым и читаемым */
 .about__title,
 .eat__title,
@@ -4835,7 +4860,8 @@ textarea.field {
 
 /* Кто просит меньше анимации — мерцание выключаем, свечение остаётся */
 @media (prefers-reduced-motion: reduce) {
-  .hero__neon {
+  .hero__neon,
+  .hero::after {
     animation: none;
   }
 }
