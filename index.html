@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>aquamarine</title>
+  <!-- Шрифт: бесплатный Inter из Google Fonts (preconnect ускоряет загрузку) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Общий файл стилей (папка css/) -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- jQuery 3.7.1 (локальный файл js/jquery.min.js). Подключаем ПЕРЕД js/script.js и тоже с defer:
+       defer-скрипты выполняются строго по порядку, поэтому $ уже есть, когда запускается script.js -->
+  <script src="js/jquery.min.js" defer></script>
+  <!-- Общий скрипт страницы (defer — выполнится после разбора HTML) -->
+  <script src="js/script.js" defer></script>
+</head>
+<body class="page">
+
+  <!-- ===== Шапка сайта ===== -->
+  <header class="header">
+    <div class="container header__inner">
+      <a class="header__logo" href="index.html">aquamarine</a>
+      <nav class="nav" aria-label="Главное меню">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="index.html">Главная</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Основное содержимое страницы ===== -->
+  <main class="main">
+    <section class="section">
+      <div class="container">
+        <h1 class="section__title">aquamarine</h1>
+        <!-- Сюда добавляем блоки страницы -->
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Подвал сайта ===== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__copy">© aquamarine</p>
+    </div>
+  </footer>
+
+</body>
+</html>
