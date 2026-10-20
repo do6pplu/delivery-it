@@ -46,12 +46,12 @@
 
    Что остаётся обычным JavaScript (у jQuery для этого нет замены, да она и не нужна):
    localStorage, JSON, setTimeout/clearTimeout, Math, Number/String, массивы (map, filter,
-   find, some, reduce), URLSearchParams, document.fonts, focus({ preventScroll: true }),
+   find, some, reduce), URLSearchParams, focus({ preventScroll: true }),
    getBoundingClientRect и плавная прокрутка scrollIntoView (см. разделы 10, 13, 16).
 
    Содержание:
      1. Помощники (цены, склонения, localStorage, сообщения)
-     2. Оригинальные шрифты (класс fonts-original)
+     2. Шрифты (проверка больше не нужна — Manrope лежит в fonts/)
      3. Корзина: хранение в localStorage и значок в шапке
      4. Шапка: выпадающее меню «Еще...»
      5. Всплывающие окна (открыть / закрыть по фону, крестику, Esc)
@@ -135,18 +135,10 @@ $(function () {
   };
 
   /* ================================================================
-     2. Оригинальные шрифты: если Suisse Intl нашёлся (в системе или в fonts/),
-        добавляем класс — CSS убирает сжатие букв, нужное только для Inter.
-        document.fonts — API браузера, в jQuery его нет; класс ставим через .addClass
-        (нативно: document.documentElement.classList.add(...)).
+     2. Шрифты: раньше здесь проверялось, загрузился ли коммерческий Suisse Intl
+        (класс fonts-original на <html>). Теперь основной шрифт — Manrope из папки
+        fonts/, он есть всегда, поэтому проверка и класс больше не нужны.
      ================================================================ */
-  if (document.fonts && document.fonts.load) {
-    document.fonts.load('400 16px "Suisse Intl Web"').then((faces) => {
-      if (faces.some((face) => face.status === 'loaded')) {
-        $('html').addClass('fonts-original');
-      }
-    }).catch(() => { /* шрифта нет — остаёмся на Inter */ });
-  }
 
   /* ================================================================
      3. Корзина: общий список товаров для всех страниц (localStorage)

@@ -1,30 +1,27 @@
-ПАПКА ДЛЯ ОРИГИНАЛЬНЫХ ШРИФТОВ МАКЕТА
-=====================================
+ПАПКА ШРИФТОВ САЙТА
+===================
 
 В макете используются коммерческие шрифты Suisse Intl (Swiss Typefaces)
 и Gilroy (Radomir Tinkov). Их нельзя скачивать с бесплатных «сборников»
-шрифтов — только купить лицензию у правообладателя. Поэтому папка пустая.
+шрифтов — только купить лицензию у правообладателя, поэтому их здесь нет.
 
-Пока файлов нет, сайт показывает бесплатные похожие шрифты из Google Fonts:
-  Suisse Intl  ->  Inter
-  Gilroy       ->  Onest
+Вместо них сайт использует бесплатные шрифты из Google Fonts
+(лицензия SIL Open Font License 1.1 — можно свободно использовать на сайте),
+файлы лежат прямо в этой папке, интернет для них не нужен:
 
-Если у шрифта есть лицензия, положите сюда файлы ровно с такими именами
-(формат WOFF2) — style.css подхватит их сам, менять код не нужно:
+  Suisse Intl  ->  Manrope (начертания 300–700, вариативный шрифт)
+      Manrope-cyrillic.woff2   — русские буквы
+      Manrope-latin.woff2      — латиница, цифры, знаки
+      OFL-Manrope.txt          — лицензия
 
-  SuisseIntl-Light.woff2      (Suisse Intl, начертание 300)
-  SuisseIntl-Regular.woff2    (Suisse Intl, начертание 400)
-  SuisseIntl-Medium.woff2     (Suisse Intl, начертание 500)
-  SuisseIntl-SemiBold.woff2   (Suisse Intl, начертание 600)
-  SuisseIntl-Bold.woff2       (Suisse Intl, начертание 700)
-  Gilroy-Bold.woff2           (Gilroy, начертание 700)
+  Gilroy       ->  Onest Bold (700)
+      Onest-Bold-cyrillic.woff2
+      Onest-Bold-latin.woff2
+      OFL-Onest.txt            — лицензия
 
-Если шрифты уже установлены в системе (Suisse Intl / Gilroy), браузер
-возьмёт их оттуда даже без файлов в этой папке (local() в @font-face).
-
-Когда оригинальный Suisse Intl загрузился, script.js добавляет к <html>
-класс fonts-original, и стили убирают небольшое сжатие букв (letter-spacing),
-которое нужно только для замены Inter.
+Подключение — в начале style.css (@font-face), переменные --font-main
+и --font-accent. Если Gilroy установлен в системе, браузер возьмёт его
+(local() в @font-face), иначе — Onest.
 
 На странице сертификата в макете ещё встречаются Montserrat и Roboto —
-это бесплатные шрифты, они подключены из Google Fonts.
+это бесплатные шрифты, они подключены из Google Fonts (ссылка в <head>).

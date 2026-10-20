@@ -11,54 +11,59 @@
      6. Меню и Барная карта: вкладки, категории, поиск, фильтры, карточки
      7. Общие блоки внутренних страниц: заголовок, всплывающие окна, формы
      8. Корзина, 9. Заказ, 10. Фотоотчёты, 11. Правила, 12. Личный кабинет,
-     13. CRUD, 14. Сертификат
+     13. CRUD, 14. Сертификат, 15. Неоновое свечение надписей
    =================================================================== */
 
 /* ===== 1. Шрифты =====
-   Оригинальные шрифты макета — Suisse Intl и Gilroy (коммерческие).
-   Сначала ищем их в системе (local), потом — файлы в папке fonts/ (их туда кладут
-   после покупки лицензии, см. fonts/README.txt). Если ничего нет, браузер берёт
-   следующий шрифт из списка в --font-main / --font-accent: Inter или Onest. */
+   Оригинальные шрифты макета Suisse Intl и Gilroy — коммерческие, их файлов в проекте нет.
+   Вместо Suisse Intl используется бесплатный Manrope (Google Fonts, лицензия SIL OFL 1.1),
+   вместо Gilroy — Onest (тоже OFL). Оба лежат в папке fonts/ (кириллица + латиница),
+   интернет и Google Fonts для них не нужны. Лицензии: fonts/OFL-Manrope.txt, fonts/OFL-Onest.txt.
+   Manrope — вариативный шрифт: один файл содержит все начертания 200–800 (используем 300–700). */
 @font-face {
-  font-family: "Suisse Intl Web";
-  src: local("Suisse Intl Light"), local("SuisseIntl-Light"), url("fonts/SuisseIntl-Light.woff2") format("woff2");
-  font-weight: 300;
+  font-family: "Manrope";
+  src: url("fonts/Manrope-cyrillic.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
   font-display: swap;
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
 @font-face {
-  font-family: "Suisse Intl Web";
-  src: local("Suisse Intl"), local("Suisse Intl Regular"), local("SuisseIntl-Regular"), url("fonts/SuisseIntl-Regular.woff2") format("woff2");
-  font-weight: 400;
+  font-family: "Manrope";
+  src: url("fonts/Manrope-latin.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
   font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-@font-face {
-  font-family: "Suisse Intl Web";
-  src: local("Suisse Intl Medium"), local("SuisseIntl-Medium"), url("fonts/SuisseIntl-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Suisse Intl Web";
-  src: local("Suisse Intl SemiBold"), local("SuisseIntl-SemiBold"), url("fonts/SuisseIntl-SemiBold.woff2") format("woff2");
-  font-weight: 600;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Suisse Intl Web";
-  src: local("Suisse Intl Bold"), local("SuisseIntl-Bold"), url("fonts/SuisseIntl-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-display: swap;
-}
-
+/* Gilroy: если он установлен в системе — берём его (local), файла в fonts/ нет,
+   поэтому ссылку на несуществующий fonts/Gilroy-Bold.woff2 убрали (была ошибка 404) */
 @font-face {
   font-family: "Gilroy Web";
-  src: local("Gilroy Bold"), local("Gilroy-Bold"), url("fonts/Gilroy-Bold.woff2") format("woff2");
+  src: local("Gilroy Bold"), local("Gilroy-Bold");
   font-weight: 700;
   font-display: swap;
+}
+
+/* Onest Bold — замена Gilroy, тоже из папки fonts/ */
+@font-face {
+  font-family: "Onest";
+  src: url("fonts/Onest-Bold-cyrillic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: "Onest";
+  src: url("fonts/Onest-Bold-latin.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 /* ===== Переменные: цвета, шрифты и размеры из макета ===== */
@@ -77,9 +82,10 @@
   --color-footer-text: #9c9c9c;   /* мелкий текст подвала */
   --color-footer-link: #dcdcdc;   /* ссылки подвала */
   --color-btn-dark: #1b1b1b;      /* тёмная кнопка с телефоном */
+  --color-neon: #ff3d5a;          /* неоновый красно-розовый: яркая версия фирменного красного */
 
-  /* Сначала оригинальные шрифты (см. @font-face выше), если их нет — похожие Inter и Onest */
-  --font-main: "Suisse Intl Web", "Inter", Arial, sans-serif;
+  /* Шрифты из папки fonts/ (см. @font-face выше): Manrope вместо Suisse Intl, Onest вместо Gilroy */
+  --font-main: "Manrope", Arial, sans-serif;
   --font-accent: "Gilroy Web", "Onest", Arial, sans-serif;
   --font-extra: "Montserrat", Arial, sans-serif;   /* добавки к заказу, сертификат */
   --font-roboto: "Roboto", Arial, sans-serif;      /* тексты на странице сертификата */
@@ -105,21 +111,13 @@ body {
   font-family: var(--font-main);
   font-size: 18px;
   line-height: 1.27;
-  letter-spacing: -0.02em;        /* Inter чуть шире, чем Suisse Intl — немного сжимаем */
+  letter-spacing: -0.01em;        /* Manrope чуть шире, чем Suisse Intl из макета — слегка сжимаем */
   color: var(--color-white);
   background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
 }
 
-/* Если загрузился оригинальный Suisse Intl (script.js ставит класс на <html>) —
-   сжатие букв, подобранное под Inter, не нужно */
-.fonts-original body,
-.fonts-original .categories__link,
-.fonts-original .menu__tab {
-  letter-spacing: 0;
-}
-
-/* Надписи ЗАГЛАВНЫМИ буквами у Inter и так по ширине как в макете — без сжатия */
+/* Надписи ЗАГЛАВНЫМИ буквами — без сжатия */
 .btn,
 .price,
 .promo__title,
@@ -4778,3 +4776,66 @@ textarea.field {
   transform: scale(1.2);
 }
 
+/* ===== 15. Неоновое свечение надписей (только CSS, без картинок) =====
+   Свечение — несколько слоёв text-shadow: всё более широкие и прозрачные
+   ореолы цвета --color-neon (у заголовков ещё тонкий светлый ободок). */
+
+/* Название «Потрачено» на первом экране нарисовано на картинке hero-title.png,
+   поэтому поверх него лежит невидимая копия слова (span.hero__neon в index.html):
+   сами буквы прозрачные, видно только их свечение. mix-blend-mode: screen
+   «подсвечивает» буквы на картинке, не перекрывая их. */
+.hero__neon {
+  position: absolute;
+  top: 195px;                     /* подогнано так, чтобы копия совпала с буквами на картинке */
+  left: 50%;
+  font-family: var(--font-main);
+  font-size: 107px;
+  line-height: 120px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+  transform: translateX(calc(-50% - 3px)) scaleX(1.625);   /* буквы на картинке очень широкие — растягиваем копию */
+  mix-blend-mode: screen;
+  pointer-events: none;
+  user-select: none;
+  text-shadow:
+    0 0 12px rgba(255, 61, 90, 0.6),
+    0 0 28px rgba(255, 61, 90, 0.55),
+    0 0 60px rgba(255, 61, 90, 0.45),
+    0 0 110px rgba(255, 61, 90, 0.35);
+  animation: neon-flicker 7s linear infinite;
+}
+
+/* Лёгкое «мерцание» неоновой трубки: пара коротких провалов яркости за цикл */
+@keyframes neon-flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.55; }
+}
+
+/* Заголовки разделов — более спокойное свечение, текст остаётся белым и читаемым */
+.about__title,
+.eat__title,
+.contacts__title,
+.page-head__title {
+  text-shadow:
+    0 0 1px rgba(255, 255, 255, 0.6),
+    0 0 8px rgba(255, 61, 90, 0.55),
+    0 0 20px rgba(255, 61, 90, 0.35),
+    0 0 40px rgba(189, 45, 67, 0.3);
+}
+
+/* «Новости и акции» стоят на красном фоне — там светится белым, а не красным */
+.promo__title {
+  text-shadow:
+    0 0 6px rgba(255, 255, 255, 0.55),
+    0 0 18px rgba(255, 255, 255, 0.3);
+}
+
+/* Кто просит меньше анимации — мерцание выключаем, свечение остаётся */
+@media (prefers-reduced-motion: reduce) {
+  .hero__neon {
+    animation: none;
+  }
+}
